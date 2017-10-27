@@ -32,8 +32,8 @@
   export default {
     data () {
       return {
-        emailAddress: 'johnwick@mailinator.com',
-        password: 'johnwick@mailinator.com',
+        emailAddress: '',
+        password: '',
         showAlertDanger: false,
         errorMessage: null
       }
