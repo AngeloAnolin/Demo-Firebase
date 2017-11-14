@@ -120,13 +120,15 @@
       confirmProceed () {
         var a = this
         var deleteItem = a.firebaseDb.ref(a.fireBaseItem.key)
+        deleteItem.remove()
+        a.retrieveItems()
 
-        deleteItem.remove().then(function () {
-          a.retrieveItems()
-        })
-          .catch(function (errr0) {
-            console.log('Error Deleting Record.')
-          })
+        // deleteItem.remove().then(function () {
+        //   a.retrieveItems()
+        // })
+        //   .catch(function (errr0) {
+        //     console.log('Error Deleting Record.')
+        //   })
       },
 
       saveItem () {
@@ -155,11 +157,20 @@
 
       retrieveItems () {
         var a = this
-        a.appData.length = 0
+        // a.appData.length = 0
+        a.appData = []
         a.firebaseDb = firebase.database()
         a.fireBaseRef = a.firebaseDb.ref()
+
         a.fireBaseRef.once('value').then(function (snapshot) {
+          console.log('retrieveItems-3')
+          console.log(a.appData)
+
+          if (snapshot) {
+            console.log('retrieveItems-4')
+          }
           snapshot.forEach(function (childSnapShot) {
+            console.log('retrieveItems-5')
             var obj = {
               key: childSnapShot.key,
               favoriteTeam: childSnapShot.val().favoriteTeam,
